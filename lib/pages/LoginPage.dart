@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:welcome_299/welcome.dart';
+
 //import 'package:http/http.dart' as http;
 //import 'dart:convert';
 //import 'package:login_app/screens/home_page.dart';
@@ -13,19 +13,24 @@ class LoginPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
+        //  image: DecorationImage(
+            //image: AssetImage ('assests/image/login.jpg')),
+
             gradient: LinearGradient(begin: Alignment.topLeft, colors: [
           Color.fromARGB(238, 196, 86, 255),
           Color.fromARGB(255, 226, 177, 255),
           Color.fromARGB(255, 99, 162, 230)
         ])),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 80,
-            ),
+        
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: <Widget>[
+          // SizedBox(
+             //height: 80,
+         // ),
             
             Padding(
+           
               padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,6 +42,7 @@ class LoginPage extends StatelessWidget {
                   FadeInUp(
                     //duration: Duration(milliseconds: 1300), 
                     child: Text("Please login to your account", style: TextStyle(color: Colors.white, fontSize: 18),)),
+                    
                  // SizedBox(
                   //  height: 10,
                  // ),
