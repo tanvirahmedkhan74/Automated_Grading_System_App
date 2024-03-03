@@ -1,19 +1,42 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:welcome_299/pages/info.dart';
+import 'package:welcome_299/pages/profile.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 //import 'package:http/http.dart' as http;
 //import 'dart:convert';
 //import 'package:login_app/screens/home_page.dart';
 
 class LoginPage extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
+    Future<void> fetchData() async {
+      final url = Uri.parse('http://localhost:8000/auth/google/callback');
+      // final response = await http.get(url);
+
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url); // Open the extracted URL in the browser
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        );
+      } else {
+        // Handle the case where the URL cannot be launched
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to open URL'),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-        //  image: DecorationImage(
+            //  image: DecorationImage(
             //image: AssetImage ('assests/image/login.jpg')),
 
             gradient: LinearGradient(begin: Alignment.topLeft, colors: [
@@ -21,31 +44,37 @@ class LoginPage extends StatelessWidget {
           Color.fromARGB(255, 226, 177, 255),
           Color.fromARGB(255, 99, 162, 230)
         ])),
-        
-       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children: <Widget>[
-          // SizedBox(
-             //height: 80,
-         // ),
-            
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            // SizedBox(
+            //height: 80,
+            // ),
+
             Padding(
-           
               padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   FadeInUp(
-                   // duration: Duration(milliseconds: 1000), 
-                   child: Text("Welcome!", style: TextStyle(color: Colors.white, fontSize: 40),)),
-                  SizedBox(height: 10,),
+                      // duration: Duration(milliseconds: 1000),
+                      child: Text(
+                    "Welcome!",
+                    style: TextStyle(color: Colors.white, fontSize: 40),
+                  )),
+                  SizedBox(
+                    height: 10,
+                  ),
                   FadeInUp(
-                    //duration: Duration(milliseconds: 1300), 
-                    child: Text("Please login to your account", style: TextStyle(color: Colors.white, fontSize: 18),)),
-                    
-                 // SizedBox(
+                      //duration: Duration(milliseconds: 1300),
+                      child: Text(
+                    "Please login to your account",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  )),
+
+                  // SizedBox(
                   //  height: 10,
-                 // ),
+                  // ),
                 ],
               ),
             ),
@@ -65,52 +94,49 @@ class LoginPage extends StatelessWidget {
                         height: 60,
                       ),
                       FadeInUp(
-                       //   duration: Duration(milliseconds: 1400),
+                          //   duration: Duration(milliseconds: 1400),
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(222, 84, 10, 0.298),
-                                      blurRadius: 20,
-                                      offset: Offset(0, 10))
-                                ]),
-                            child: Column(
-                              children: <Widget>[
-                              
-                                Container(
-                                 
-                                ),
-                              ],
-                            ),
-                          )),
-                      
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(222, 84, 10, 0.298),
+                                  blurRadius: 20,
+                                  offset: Offset(0, 10))
+                            ]),
+                        child: Column(
+                          children: <Widget>[
+                            Container(),
+                          ],
+                        ),
+                      )),
                       SizedBox(
                         height: 40,
                       ),
                       FadeInUp(
                           //duration: Duration(milliseconds: 1600),
                           child: MaterialButton(
-                            onPressed: () {},
-                            height: 50,
-                            // margin: EdgeInsets.symmetric(horizontal: 50),
-                            color: Color.fromARGB(255, 121, 14, 157),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            // decoration: BoxDecoration(
-                            // ),
-                            child: SlideInRight   (
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                      ),
+                        onPressed: () async {
+                          await fetchData();
+                        },
+                        height: 50,
+                        // margin: EdgeInsets.symmetric(horizontal: 50),
+                        color: Color.fromARGB(255, 121, 14, 157),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        // decoration: BoxDecoration(
+                        // ),
+                        child: SlideInRight(
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )),
                     ],
                   ),
                 ),
