@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:welcome_299/pages/info.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class HalfOvalClipper extends CustomClipper<Path> {
   @override
@@ -24,6 +26,24 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+   Future<void> logOut() async {
+      final url = Uri.parse('http://localhost:8000/auth/logout');
+      // final response = await http.get(url);
+
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url); // Open the extracted URL in the browser
+        Navigator.pop(context);
+      } else {
+        // Handle the case where the URL cannot be launched
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to open URL'),
+          ),
+        );
+      }
+    }
+
+
     return Scaffold(
       body: Stack(
         children: [
